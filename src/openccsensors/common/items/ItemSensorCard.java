@@ -24,6 +24,7 @@ import openccsensors.common.sensors.InventorySensor;
 import openccsensors.common.sensors.MinecartSensor;
 import openccsensors.common.sensors.ProximitySensor;
 import openccsensors.common.sensors.SignSensor;
+import openccsensors.common.sensors.SonicSensor;
 import openccsensors.common.sensors.TankSensor;
 import openccsensors.common.sensors.ThaumCraftSensor;
 import openccsensors.common.sensors.WorldSensor;
@@ -84,6 +85,11 @@ public class ItemSensorCard extends Item {
 	public static final SensorCardInterface THAUMCRAFT_TIER_3 = new SensorCardInterface(57, "openccsensors.item.thaumcraftsensor", SensorUpgradeTier.TIER3, ThaumCraftSensor.class);
 	public static final SensorCardInterface THAUMCRAFT_TIER_4 = new SensorCardInterface(73, "openccsensors.item.thaumcraftsensor", SensorUpgradeTier.TIER4, ThaumCraftSensor.class);
 	
+	public static final SensorCardInterface SONIC_TIER_1 = 	new SensorCardInterface(26, "openccsensors.item.sonicsensor", SensorUpgradeTier.TIER1, SonicSensor.class);
+	public static final SensorCardInterface SONIC_TIER_2 = 	new SensorCardInterface(42, "openccsensors.item.sonicsensor", SensorUpgradeTier.TIER2, SonicSensor.class);
+	public static final SensorCardInterface SONIC_TIER_3 = 	new SensorCardInterface(58, "openccsensors.item.sonicsensor", SensorUpgradeTier.TIER3, SonicSensor.class);
+	public static final SensorCardInterface SONIC_TIER_4 = 	new SensorCardInterface(74, "openccsensors.item.sonicsensor", SensorUpgradeTier.TIER4, SonicSensor.class);
+	
 	public ItemSensorCard(int par1) {
 		super(par1);
 		setTextureFile("/openccsensors/resources/images/terrain.png");
@@ -102,7 +108,8 @@ public class ItemSensorCard extends Item {
 				WORLD_TIER_1,
 				BUILDCRAFT_TIER_1, BUILDCRAFT_TIER_2, BUILDCRAFT_TIER_3, BUILDCRAFT_TIER_4,
 				INDUSTRIALCRAFT_TIER_1, INDUSTRIALCRAFT_TIER_2, INDUSTRIALCRAFT_TIER_3, INDUSTRIALCRAFT_TIER_4,
-				THAUMCRAFT_TIER_1, THAUMCRAFT_TIER_2, THAUMCRAFT_TIER_3, THAUMCRAFT_TIER_4
+				THAUMCRAFT_TIER_1, THAUMCRAFT_TIER_2, THAUMCRAFT_TIER_3, THAUMCRAFT_TIER_4,
+				SONIC_TIER_1,SONIC_TIER_2,SONIC_TIER_3,SONIC_TIER_4
 		});
 		
 	}
