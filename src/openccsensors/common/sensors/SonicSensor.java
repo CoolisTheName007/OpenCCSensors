@@ -17,6 +17,7 @@ import openccsensors.common.sensors.targets.SonicTarget;
 public class SonicSensor implements ISensor {
 
 	private static final int BASE_RANGE = 5;
+	private static final int BASE_SEETHROUGH_RANGE = 1;
 	
 	@Override
 	public String[] getCustomMethods(SensorUpgradeTier upgrade) {
@@ -37,6 +38,8 @@ public class SonicSensor implements ISensor {
 		
 		int range = (new Double(upgrade.getMultiplier())).intValue()
 				* BASE_RANGE;
+		int seethrough_range=(new Double(upgrade.getMultiplier())).intValue()
+				* BASE_SEETHROUGH_RANGE;
 
 		for (int x = -range; x <= range; x++) {
 			for (int y = -range; y <= range; y++) {
@@ -49,32 +52,41 @@ public class SonicSensor implements ISensor {
 	
 							Block block = Block.blocksList[id];
 								
-							MovingObjectPosition hit = null;
-							
-							try {
-								hit = world.rayTraceBlocks(
-										
-										Vec3.createVectorHelper(
-												sx + (x == 0 ? 0.5 : (x > 0 ? 1.5 : -0.5)),
-												sy + (y == 0 ? 0.5 : (y > 0 ? 1.5 : -0.5)),
-												sz + (z == 0 ? 0.5 : (z > 0 ? 1.5 : -0.5))
-										),
-										Vec3.createVectorHelper(
-												sx + x + 0.5,
-												sy + y + 0.5,
-												sz + z + 0.5
-										)
-								);
-							
-							}catch(Exception e) {
-							}
-							
-							if (	hit == null ||
-								  ( hit.blockX == sx + x &&
-									hit.blockY == sy + y &&
-									hit.blockZ == sz + z )
-							) {
+							int distance=Math.abs(x)+Math.abs(y)+Math.abs(z);
+							boolean can_see=false;
+							if (distance<=seethrough_range){
+								can_see=true;
+							}else{
+								MovingObjectPosition hit = null;
 								
+								try {
+									hit = world.rayTraceBlocks(
+											
+											Vec3.createVectorHelper(
+													sx + (x == 0 ? 0.5 : (x > 0 ? 1.5 : -0.5)),
+													sy + (y == 0 ? 0.5 : (y > 0 ? 1.5 : -0.5)),
+													sz + (z == 0 ? 0.5 : (z > 0 ? 1.5 : -0.5))
+											),
+											Vec3.createVectorHelper(
+													sx + x + 0.5,
+													sy + y + 0.5,
+													sz + z + 0.5
+											)
+									);
+								
+								}catch(Exception e) {
+								}
+								
+								if (	hit == null ||
+									  ( hit.blockX == sx + x &&
+										hit.blockY == sy + y &&
+										hit.blockZ == sz + z )
+								) {
+									
+									can_see=true;
+								}
+							}
+							if (can_see){
 								ArrayList<ISensorTarget> arr = new ArrayList<ISensorTarget>();
 								arr.add(new SonicTarget(block, x, y, z));
 								ret.put(x + "," + y + "," + z, arr);
